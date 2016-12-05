@@ -3,7 +3,7 @@
 	<property environment="env" />
 
 	<!-- library version -->
-	<property name="version" value="1.5.7-SNAPSHOT"/>
+	<property name="version" value="1.9.2"/>
 
 	<!-- define distribution/output directory -->
 	<property name="distDir" value="${basedir}/dist"/>
@@ -58,7 +58,7 @@
     <!-- gdx headless backend -->
     <target name="gdx-backend-headless" depends="gdx-core">
         <path id="classpath">
-                <pathelement location="${distDir}/gdx.jar"/>                    
+                <pathelement location="${distDir}/gdx.jar"/>
         </path>
         <ant antfile="../../build-template.xml" dir="backends/gdx-backend-headless">
                 <property name="jar" value="gdx-backend-headless"/>
@@ -125,29 +125,29 @@
 			<reference refid="classpath"/>
 		</ant>
 	</target>
-    
+
     <!-- gdx robovm backend -->
     <target name="gdx-backend-robovm" depends="gdx-core">
 		<path id="classpath">
 			<pathelement location="${distDir}/gdx.jar"/>
 		</path>
-        <ant antfile="fetch.xml">
+        <!--ant antfile="fetch.xml">
             <target name="fetch-robovm"/>
-        </ant>
+        </ant-->
 		<ant antfile="../../build-template.xml" dir="backends/gdx-backend-robovm">
 			<property name="jar" value="gdx-backend-robovm"/>
 			<reference refid="classpath"/>
 		</ant>
 	</target>
-    
+
     <!-- gdx robovm backend light -->
     <target name="gdx-backend-robovm-light" depends="gdx-core">
 		<path id="classpath">
 			<pathelement location="${distDir}/gdx.jar"/>
 		</path>
-        <ant antfile="fetch.xml">
+        <!--ant antfile="fetch.xml">
             <target name="fetch-robovm"/>
-        </ant>
+        </ant-->
 		<ant antfile="../../build-template.xml" dir="backends/gdx-backend-robovm-light">
 			<property name="jar" value="gdx-backend-robovm-light"/>
 			<reference refid="classpath"/>
@@ -184,7 +184,7 @@
 			<reference refid="classpath"/>
 		</ant>
 	</target>
-	
+
 	<target name="gdx-box2d-gwt" depends="gdx-core,gdx-backend-gwt,gdx-box2d">
 		<path id="classpath">
 			<pathelement location="${distDir}/gdx.jar"/>
@@ -199,7 +199,7 @@
 			<reference refid="classpath"/>
 		</ant>
 	</target>
-	
+
 	<!-- gdx controllers -->
 	<target name="gdx-controllers" depends="gdx-core">
 		<path id="classpath">
@@ -296,7 +296,7 @@
 			<reference refid="classpath"/>
 			<reference refid="src"/>
 		</ant>
-	</target>    	
+	</target>
 
 	<!-- generates the javadoc for the core api and the application implementations -->
 	<target name="docs" depends="clean">

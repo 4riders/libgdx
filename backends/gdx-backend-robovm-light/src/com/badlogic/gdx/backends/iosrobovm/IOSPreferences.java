@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.robovm.apple.foundation.NSMutableDictionary;
+import org.robovm.apple.foundation.NSNull;
 import org.robovm.apple.foundation.NSNumber;
 import org.robovm.apple.foundation.NSObject;
 import org.robovm.apple.foundation.NSString;
@@ -65,7 +66,7 @@ public class IOSPreferences implements Preferences {
 
 	@Override
 	public Preferences putString (String key, String val) {
-		nsDictionary.put(convertKey(key), new NSString(val));
+		nsDictionary.put(convertKey(key), val != null ? new NSString(val) : NSNull.getNull());
 		return this;
 	}
 
@@ -74,7 +75,7 @@ public class IOSPreferences implements Preferences {
 		Set<String> keySet = vals.keySet();
 		for (String key : keySet) {
 			Object value = vals.get(key);
-			if (value instanceof String) {
+			if (value == null || value instanceof String) {
 				putString(key, (String)value);
 			} else if (value instanceof Boolean) {
 				putBoolean(key, (Boolean)value);
