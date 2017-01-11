@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.robovm.apple.foundation.Foundation;
 import org.robovm.apple.foundation.NSMutableDictionary;
 import org.robovm.apple.foundation.NSNull;
 import org.robovm.apple.foundation.NSNumber;
@@ -66,7 +67,10 @@ public class IOSPreferences implements Preferences {
 
 	@Override
 	public Preferences putString (String key, String val) {
-		nsDictionary.put(convertKey(key), val != null ? new NSString(val) : NSNull.getNull());
+	    if (val == null)
+	        nsDictionary.remove(convertKey(key));
+	    else
+		    nsDictionary.put(convertKey(key), new NSString(val));
 		return this;
 	}
 
@@ -186,11 +190,7 @@ public class IOSPreferences implements Preferences {
 
 	@Override
 	public void flush () {
-		boolean fileWritten = nsDictionary.write(new File(filePath), false);
-		if (fileWritten)
-			Gdx.app.debug("IOSPreferences", "NSDictionary file written");
-		else
-			Gdx.app.debug("IOSPreferences", "Failed to write NSDictionary to file " + filePath);
+		if (!nsDictionary.write(new File(filePath), false))
+            Foundation.log("IOSPreferences.flush - Failed to write NSDictionary to file " + filePath);
 	}
-
 }
