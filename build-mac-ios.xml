@@ -1,5 +1,5 @@
 <project name="gdx-ios-build" default="all" basedir=".">
-    
+
 	<target name="core">
 		<ant antfile="build-macosx32.xml" dir="gdx/jni">
 			<target name="clean"/>
@@ -11,16 +11,22 @@
 		</ant>
 		<ant antfile="build-ios32.xml" dir="gdx/jni"/>
 	</target>
-	
-    <target name="backend-robovm" depends="core">
-        <ant antfile="fetch.xml" dir=".">
+
+  <target name="backend-robovm" depends="core">
+    <ant antfile="fetch.xml" dir=".">
 			<target name="fetch-robovm"/>
 		</ant>
-        <exec dir="backends/gdx-backend-robovm" executable="/bin/bash">
-            <arg value="build-objectal.sh"/>
-        </exec>
+    <exec dir="backends/gdx-backend-robovm" executable="/bin/bash">
+      <arg value="build-objectal.sh"/>
+    </exec>
 	</target>
-	
+
+  <target name="backend-robovm-light" depends="core">
+    <ant antfile="fetch.xml" dir=".">
+			<target name="fetch-robovm-light"/>
+		</ant>
+	</target>
+
 	<target name="freetype" depends="core">
 		<ant antfile="build-macosx32.xml" dir="extensions/gdx-freetype/jni">
 			<target name="clean"/>
@@ -32,7 +38,7 @@
 		</ant>
 		<ant antfile="build-ios32.xml" dir="extensions/gdx-freetype/jni"/>
 	</target>
-    
+
     <target name="box2d" depends="core">
 		<ant antfile="build-macosx32.xml" dir="extensions/gdx-box2d/gdx-box2d/jni">
 			<target name="clean"/>
@@ -44,7 +50,7 @@
 		</ant>
 		<ant antfile="build-ios32.xml" dir="extensions/gdx-box2d/gdx-box2d/jni"/>
 	</target>
-	
+
 	<target name="bullet" depends="core">
 		<ant antfile="build-macosx32.xml" dir="extensions/gdx-bullet/jni">
 			<target name="clean"/>
@@ -56,7 +62,7 @@
 		</ant>
 		<ant antfile="build-ios32.xml" dir="extensions/gdx-bullet/jni"/>
 	</target>
-	
+
 	<target name="controllers" depends="core">
 		<ant antfile="build-macosx32.xml" dir="extensions/gdx-controllers/gdx-controllers-desktop/jni">
 			<target name="clean"/>
@@ -67,7 +73,7 @@
 			<target name="postcompile"/>
 		</ant>
 	</target>
-	
-	<target name="all" depends="core,backend-robovm,freetype,box2d,bullet,controllers">	
+
+	<target name="all" depends="core,backend-robovm,backend-robovm-light,freetype,box2d,bullet,controllers">
 	</target>
 </project>
